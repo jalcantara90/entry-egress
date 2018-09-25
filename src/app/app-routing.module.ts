@@ -1,3 +1,4 @@
+import { dasboardRoutes } from './dashboard/dashboard.routes';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -8,7 +9,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
-    { path: '', component: DashboardComponent },
+    { path: '', 
+      component: DashboardComponent,
+      children: dasboardRoutes   
+    },
     { path: '**', redirectTo: ''}
 ]
 
