@@ -1,6 +1,10 @@
 import * as entryEgressActions from './entry-egress.actions';
 import { EntryEgress } from './entry-egress.model';
-import { actions, SET_ITEMS } from './entry-egress.actions';
+import { AppState } from '../app.reducer';
+
+export interface AppState extends AppState {
+    entryEgress: EntryEgressState;
+}
 
 export interface EntryEgressState {
     items: EntryEgress[];

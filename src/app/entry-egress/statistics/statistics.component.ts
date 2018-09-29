@@ -1,8 +1,9 @@
 import { EntryEgress } from './../entry-egress.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+// import { AppState } from '../../app.reducer';
 import { Subscription } from 'rxjs';
+import * as entryEgressReducer from '../entry-egress.reducer';
 
 @Component({
   selector: 'app-statistics',
@@ -21,7 +22,7 @@ export class StatisticsComponent implements OnInit {
   public doughnutChartData:number[] = [];
   public doughnutColors: string[] = ['fafafa', '#de287c']
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<entryEgressReducer.AppState>) { }
 
   ngOnInit() {
     this.subscription = this.store.select('entryEgress')

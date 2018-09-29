@@ -3,7 +3,7 @@ import { StatisticsComponent } from '../entry-egress/statistics/statistics.compo
 import { EntryEgressComponent } from '../entry-egress/entry-egress.component';
 import { DetailComponent } from '../entry-egress/detail/detail.component';
 
-export const dasboardRoutes: Routes = [
+export const dashboardRoutes: Routes = [
     { path: '', component: StatisticsComponent },
     { path: 'entry-egress', component: EntryEgressComponent },
     { path: 'detail', component: DetailComponent }

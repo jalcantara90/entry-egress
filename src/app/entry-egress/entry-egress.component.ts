@@ -8,6 +8,8 @@ import { EntryEgressService } from './entry-egress.service';
 import Swal from 'sweetalert2';
 import { AppState } from '../app.reducer';
 import { ActivateLoadingAction, DesactivateLoadingAction } from '../shared/ui.actions';
+import * as entryEgressReducer  from './entry-egress.reducer';
+
 
 @Component({
   selector: 'app-entry-egress',
@@ -21,7 +23,7 @@ export class EntryEgressComponent implements OnInit, OnDestroy {
   loading: boolean;
 
   constructor(public entryEgressService: EntryEgressService,
-              private store: Store<AppState>) { }
+              private store: Store<entryEgressReducer.AppState>) { }
 
   ngOnInit() {
 
