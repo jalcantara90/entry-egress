@@ -12,13 +12,14 @@ import { ActivateLoadingAction, DesactivateLoadingAction } from './../shared/ui.
 import { Subscription } from 'rxjs';
 
 import { User } from './user.model';
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnSetUserAction } from './auth.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   subscription: Subscription = new Subscription();
+  private user: User;
 
   constructor(private afAuth: AngularFireAuth, 
               private router: Router,
@@ -29,14 +30,17 @@ export class AuthService {
     this.afAuth.authState.subscribe( (fbUser: firebase.User) => {
 
       if ( fbUser ) {
-        this.subscription = this.afDb.doc(`user/${fbUser.uid}`).valueChanges()
+        this.subscription = this.afDb.doc(`${fbUser.uid}/user`).valueChanges()
           .subscribe( ( userObject: any ) => {
             const newUser = new User ( userObject );
 
             this.store.dispatch( new SetUserAction(newUser) );
+            this.user = newUser;
+
           });
       } else {
-
+        
+        this.user = null;
         this.subscription.unsubscribe();
       }
     })
@@ -56,7 +60,7 @@ export class AuthService {
           email: res.user.email
         }
 
-        this.afDb.doc(`user/${ user.uid }`)
+        this.afDb.doc(`${ user.uid }/user`)
           .set( user )
           .then( () => {
             this.router.navigate(['/']);
@@ -94,6 +98,7 @@ export class AuthService {
     this.afAuth.auth
       .signOut()
       .then( data => {
+        this.store.dispatch( new UnSetUserAction() );
         this.router.navigate(['/login']);
       })
       .catch( error => {
@@ -112,5 +117,9 @@ export class AuthService {
           return fbUser != null
         })
       );
+  }
+
+  getUser() {
+    return { ...this.user };
   }
 }

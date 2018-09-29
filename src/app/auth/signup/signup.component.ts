@@ -11,7 +11,7 @@ import { AppState } from '../../app.reducer';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   loading: boolean;
-  subscription: Subscription;
+  subscription: Subscription = new Subscription();
 
   constructor(public authService: AuthService, public store: Store<AppState>) { }
 

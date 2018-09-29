@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntryEgressService } from '../entry-egress/entry-egress.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(public entryEgressService: EntryEgressService) { }
 
   ngOnInit() {
+    this.entryEgressService.initEntryEgressListener();
   }
 
 }
